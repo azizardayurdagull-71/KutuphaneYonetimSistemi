@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 30 May 2026, 01:17:53
+-- Üretim Zamanı: 07 May 2026, 19:34:09
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -36,64 +36,65 @@ CREATE TABLE `books` (
   `genre` varchar(100) DEFAULT NULL,
   `shelf_location` varchar(50) DEFAULT NULL,
   `stock` int(11) DEFAULT 0,
-  `cover_image` varchar(255) DEFAULT NULL
+  `cover_image` varchar(255) DEFAULT NULL,
+  `category` varchar(50) DEFAULT 'Genel'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Tablo döküm verisi `books`
 --
 
-INSERT INTO `books` (`id`, `title`, `author`, `isbn`, `publish_year`, `genre`, `shelf_location`, `stock`, `cover_image`) VALUES
-(8, 'Clean Code: A Handbook of Agile Software Craftsmanship', 'Robert C. Martin', '9780132350884', 2008, 'Yazılım', 'Y-01', 4, 'default.png'),
-(9, 'Python Crash Course', 'Eric Matthes', '9781593279288', 2019, 'Yazılım', 'Y-02', 5, 'default.png'),
-(10, 'C# in Depth', 'Jon Skeet', '9781617294532', 2019, 'Yazılım', 'Y-03', 3, 'default.png'),
-(11, 'PHP & MySQL: Novice to Ninja', 'Tom Butler', '9780994182654', 2017, 'Yazılım', 'Y-04', 2, 'default.png'),
-(12, 'Linux Command Line', 'William E. Shotts', '9781593273897', 2012, 'İşletim Sistemleri', 'S-01', 3, 'default.png'),
-(13, 'The Pragmatic Programmer', 'Andrew Hunt', '9780135957059', 1999, 'Yazılım', 'Y-05', 4, 'default.png'),
-(14, 'Head First HTML and CSS', 'Elisabeth Robson', '9780596159900', 2012, 'Web Geliştirme', 'W-01', 5, 'default.png'),
-(15, 'Modern PC Hardware Optimization', 'Scott Mueller', '9780789755255', 2015, 'Donanım', 'D-01', 2, 'default.png'),
-(16, 'Unity in Action: Multiplatform game development in C#', 'Joe Hocking', '9781617294969', 2018, 'Oyun Geliştirme', 'O-01', 3, 'default.png'),
-(17, 'Flask Web Development', 'Miguel Grinberg', '9781491991732', 2018, 'Web Geliştirme', 'W-02', 4, 'default.png'),
-(18, 'Balkanlar Tarihi', 'Mark Mazower', '9786051066865', 2013, 'Tarih', 'T-01', 2, 'default.png'),
-(19, 'Otomotiv Mühendisliğinin Temelleri', 'Hermann Winner', '9783658257005', 2020, 'Mühendislik', 'M-01', 1, 'default.png'),
-(20, '1984', 'George Orwell', '9789750718533', 1949, 'Distopya', 'E-01', 5, 'default.png'),
-(21, 'Hayvan Çiftliği', 'George Orwell', '9789750719387', 1945, 'Distopya', 'E-02', 4, 'default.png'),
-(22, 'Suç ve Ceza', 'Fyodor Dostoyevski', '9786053327346', 1866, 'Dünya Klasikleri', 'K-01', 3, 'default.png'),
-(23, 'Karamazov Kardeşler', 'Fyodor Dostoyevski', '9786053326165', 1880, 'Dünya Klasikleri', 'K-02', 2, 'default.png'),
-(24, 'İnce Memed 1', 'Yaşar Kemal', '9789750807140', 1955, 'Türk Edebiyatı', 'T-02', 5, 'default.png'),
-(25, 'Tutunamayanlar', 'Oğuz Atay', '9789754700114', 1972, 'Türk Edebiyatı', 'T-03', 3, 'default.png'),
-(26, 'Saatleri Ayarlama Enstitüsü', 'Ahmet Hamdi Tanpınar', '9789755109594', 1961, 'Türk Edebiyatı', 'T-04', 4, 'default.png'),
-(27, 'Kürk Mantolu Madonna', 'Sabahattin Ali', '9789753638029', 1943, 'Türk Edebiyatı', 'T-05', 6, 'default.png'),
-(28, 'Kuyucaklı Yusuf', 'Sabahattin Ali', '9789753638036', 1937, 'Türk Edebiyatı', 'T-06', 3, 'default.png'),
-(29, 'Sefiller', 'Victor Hugo', '9789754580648', 1862, 'Dünya Klasikleri', 'K-03', 2, 'default.png'),
-(30, 'Savaş ve Barış', 'Lev Tolstoy', '9786053327179', 1869, 'Dünya Klasikleri', 'K-04', 1, 'default.png'),
-(31, 'Anna Karenina', 'Lev Tolstoy', '9786053325601', 1877, 'Dünya Klasikleri', 'K-05', 2, 'default.png'),
-(32, 'Don Kişot', 'Miguel de Cervantes', '9789750810140', 1605, 'Dünya Klasikleri', 'K-06', 4, 'default.png'),
-(33, 'Gurur ve Önyargı', 'Jane Austen', '9786053326448', 1813, 'Dünya Klasikleri', 'K-07', 3, 'default.png'),
-(34, 'Uğultulu Tepeler', 'Emily Brontë', '9786053326622', 1847, 'Dünya Klasikleri', 'K-08', 3, 'default.png'),
-(35, 'Yüzüklerin Efendisi: Yüzük Kardeşliği', 'J.R.R. Tolkien', '9789753423473', 1954, 'Fantastik', 'F-01', 5, 'default.png'),
-(36, 'Yüzüklerin Efendisi: İki Kule', 'J.R.R. Tolkien', '9789753423480', 1954, 'Fantastik', 'F-02', 4, 'default.png'),
-(37, 'Yüzüklerin Efendisi: Kralın Dönüşü', 'J.R.R. Tolkien', '9789753423497', 1955, 'Fantastik', 'F-03', 4, 'default.png'),
-(38, 'Hobbit', 'J.R.R. Tolkien', '9789753426214', 1937, 'Fantastik', 'F-04', 6, 'default.png'),
-(39, 'Harry Potter ve Felsefe Taşı', 'J.K. Rowling', '9789750802947', 1997, 'Fantastik', 'F-05', 5, 'default.png'),
-(40, 'Harry Potter ve Sırlar Odası', 'J.K. Rowling', '9789750803111', 1998, 'Fantastik', 'F-06', 4, 'default.png'),
-(41, 'Dune', 'Frank Herbert', '9786053754982', 1965, 'Bilim Kurgu', 'B-01', 5, 'default.png'),
-(42, 'Vakıf', 'Isaac Asimov', '9786053757136', 1951, 'Bilim Kurgu', 'B-02', 3, 'default.png'),
-(43, 'Cesur Yeni Dünya', 'Aldous Huxley', '9789756902165', 1932, 'Distopya', 'E-03', 4, 'default.png'),
-(44, 'Fahrenheit 451', 'Ray Bradbury', '9786053757815', 1953, 'Distopya', 'E-04', 3, 'default.png'),
-(45, 'Otostopçunun Galaksi Rehberi', 'Douglas Adams', '9786054820250', 1979, 'Bilim Kurgu', 'B-03', 4, 'default.png'),
-(46, 'Simyacı', 'Paulo Coelho', '9789750726439', 1988, 'Roman', 'R-01', 6, 'default.png'),
-(47, 'Şeker Portakalı', 'José Mauro de Vasconcelos', '9789755102557', 1968, 'Roman', 'R-02', 5, 'default.png'),
-(48, 'Küçük Prens', 'Antoine de Saint-Exupéry', '9789750726446', 1943, 'Çocuk/Roman', 'R-03', 7, 'default.png'),
-(49, 'Bülbülü Öldürmek', 'Harper Lee', '9786053140594', 1960, 'Roman', 'R-04', 4, 'default.png'),
-(50, 'Büyük Umutlar', 'Charles Dickens', '9786053326172', 1861, 'Dünya Klasikleri', 'K-09', 3, 'default.png'),
-(51, 'Sapiens: Hayvanlardan Tanrılara', 'Yuval Noah Harari', '9786055089046', 2011, 'Popüler Bilim', 'P-01', 4, 'default.png'),
-(52, 'Homo Deus: Yarının Kısa Bir Tarihi', 'Yuval Noah Harari', '9786055089855', 2015, 'Popüler Bilim', 'P-02', 3, 'default.png'),
-(53, 'Kozmos', 'Carl Sagan', '9789752115378', 1980, 'Bilim', 'P-03', 2, 'default.png'),
-(54, 'Zamanın Kısa Tarihi', 'Stephen Hawking', '9786053320149', 1988, 'Bilim', 'P-04', 3, 'default.png'),
-(55, 'Türlerin Kökeni', 'Charles Darwin', '9786053325793', 1859, 'Bilim', 'P-05', 2, 'default.png'),
-(56, 'İzafiyet Teorisi', 'Albert Einstein', '9789754685046', 1916, 'Bilim', 'P-06', 1, 'default.png'),
-(57, 'Balkan Kıyılarında Kamp Rotaları', 'Seyyah Ekibi', '9789759999999', 2023, 'Gezi Rehberi', 'G-01', 3, 'default.png');
+INSERT INTO `books` (`id`, `title`, `author`, `isbn`, `publish_year`, `genre`, `shelf_location`, `stock`, `cover_image`, `category`) VALUES
+(1, 'Suç ve Ceza', 'Fyodor Dostoyevski', '9786053321151', 1866, 'Psikolojik Dram', 'A-01', 6, 'default.png', 'Roman'),
+(2, '1984', 'George Orwell', '9789750718533', 1949, 'Distopya', 'A-02', 3, 'default.png', 'Roman'),
+(3, 'Sapiens', 'Yuval Noah Harari', '9786055162463', 2011, 'Antropoloji', 'B-01', 14, 'default.png', 'Bilim'),
+(4, 'Kürk Mantolu Madonna', 'Sabahattin Ali', '9789753631621', 1943, 'Aşk', 'C-01', 10, 'default.png', 'Roman'),
+(5, 'Zamanın Kısa Tarihi', 'Stephen Hawking', '9786055903028', 1988, 'Popüler Bilim', 'B-02', 2, 'default.png', 'Bilim'),
+(6, 'İlber Ortaylı Seyahatnamesi', 'İlber Ortaylı', '9786050901512', 2011, 'Gezi Yazısı', 'D-01', 3, 'default.png', 'Gezi'),
+(7, 'Nutuk', 'Mustafa Kemal Atatürk', '9789751611024', 1927, 'Söylev', 'E-01', 15, 'default.png', 'Tarih'),
+(8, 'Simyacı', 'Paulo Coelho', '9789750726439', 1988, 'Felsefi Roman', 'A-03', 6, 'default.png', 'Roman'),
+(9, 'Küçük Prens', 'Antoine de Saint-Exupéry', '9789750724282', 1943, 'Masal', 'A-04', 8, 'default.png', 'Roman'),
+(10, 'Türlerin Kökeni', 'Charles Darwin', '9789752981921', 1859, 'Biyoloji', 'B-03', 1, 'default.png', 'Bilim'),
+(11, 'Sefiller', 'Victor Hugo', '9786053320246', 1862, 'Klasik', 'A-05', 4, 'default.png', 'Roman'),
+(12, 'Dune', 'Frank Herbert', '9786053754718', 1965, 'Bilim Kurgu', 'A-06', 3, 'default.png', 'Roman'),
+(13, 'Tüfek, Mikrop ve Çelik', 'Jared Diamond', '9789756580000', 1997, 'Tarihsel Coğrafya', 'B-04', 2, 'default.png', 'Bilim'),
+(14, 'Bilinmeyen Bir Kadının Mektubu', 'Stefan Zweig', '9786053320000', 1922, 'Novella', 'A-07', 12, 'default.png', 'Roman'),
+(15, 'Satranç', 'Stefan Zweig', '9786053320001', 1941, 'Psikolojik', 'A-08', 9, 'default.png', 'Roman'),
+(16, 'Hayvan Çiftliği', 'George Orwell', '9789750719387', 1945, 'Politik Hiciv', 'A-09', 7, 'default.png', 'Roman'),
+(17, 'Martı', 'Richard Bach', '9789750000001', 1970, 'Kişisel Gelişim', 'F-01', 5, 'default.png', 'Genel'),
+(18, 'Kozmos', 'Carl Sagan', '9786054439000', 1980, 'Astronomi', 'B-05', 3, 'default.png', 'Bilim'),
+(19, 'Şeker Portakalı', 'José Mauro de Vasconcelos', '9789750700002', 1968, 'Dram', 'A-10', 6, 'default.png', 'Roman'),
+(20, 'Tutunamayanlar', 'Oğuz Atay', '9789754700114', 1971, 'Modernizm', 'A-11', 4, 'default.png', 'Roman'),
+(21, 'Semerkant', 'Amin Maalouf', '9789753630005', 1988, 'Tarihi Roman', 'A-12', 3, 'default.png', 'Roman'),
+(22, 'Doğu Ekspresinde Cinayet', 'Agatha Christie', '9789752100003', 1934, 'Polisiye', 'A-13', 5, 'default.png', 'Roman'),
+(23, 'Sherlock Holmes', 'Sir Arthur Conan Doyle', '9786050000005', 1887, 'Polisiye', 'A-14', 8, 'default.png', 'Roman'),
+(24, 'Atlas Silkindi', 'Ayn Rand', '9789750000006', 1957, 'Felsefe', 'F-02', 2, 'default.png', 'Genel'),
+(25, 'Beyaz Zambaklar Ülkesinde', 'Grigory Petrov', '9786050000007', 1923, 'Kişisel Gelişim', 'F-03', 10, 'default.png', 'Genel'),
+(26, 'National Geographic Türkiye', 'Kolektif', '9771302800000', 2024, 'Coğrafya', 'G-01', 20, 'default.png', 'Dergi'),
+(27, 'Bilim ve Teknik', 'TÜBİTAK', '9771300300000', 2024, 'Bilim', 'G-02', 15, 'default.png', 'Dergi'),
+(28, 'Evrim Kuramı ve Mekanizmaları', 'Çağrı Mert Bakırcı', '9786050000008', 2013, 'Evrimsel Biyoloji', 'B-06', 4, 'default.png', 'Bilim'),
+(29, 'Kısa Türkiye Tarihi', 'Sina Akşin', '9789754580009', 2007, 'Tarih', 'E-02', 5, 'default.png', 'Tarih'),
+(30, 'Savaş ve Barış', 'Lev Tolstoy', '9786050000010', 1869, 'Klasik', 'A-15', 3, 'default.png', 'Roman'),
+(31, 'Anna Karenina', 'Lev Tolstoy', '9786050000011', 1877, 'Klasik', 'A-16', 4, 'default.png', 'Roman'),
+(32, 'Fahrenheit 451', 'Ray Bradbury', '9786050000012', 1953, 'Bilim Kurgu', 'A-17', 5, 'default.png', 'Roman'),
+(33, 'Cesur Yeni Dünya', 'Aldous Huxley', '9789750000013', 1932, 'Distopya', 'A-18', 6, 'default.png', 'Roman'),
+(34, 'Ulysses', 'James Joyce', '9789750000014', 1922, 'Modernist', 'A-19', 2, 'default.png', 'Roman'),
+(35, 'Don Kişot', 'Miguel de Cervantes', '9786050000015', 1605, 'Klasik', 'A-20', 3, 'default.png', 'Roman'),
+(36, 'İlahi Komedya', 'Dante Alighieri', '9786050000016', 1320, 'Klasik', 'A-21', 2, 'default.png', 'Roman'),
+(37, 'Odessa Dosyası', 'Frederick Forsyth', '9789750000017', 1972, 'Gerilim', 'A-22', 3, 'default.png', 'Roman'),
+(38, 'Da Vinci Şifresi', 'Dan Brown', '9789750000018', 2003, 'Gerilim', 'A-23', 7, 'default.png', 'Roman'),
+(39, 'Melekler ve Şeytanlar', 'Dan Brown', '9789750000019', 2000, 'Gerilim', 'A-24', 6, 'default.png', 'Roman'),
+(40, 'Olasılıksız', 'Adam Fawer', '9789750000020', 2005, 'Bilimsel Gerilim', 'A-25', 8, 'default.png', 'Roman'),
+(41, 'Empati', 'Adam Fawer', '9789750000021', 2008, 'Bilimsel Gerilim', 'A-26', 7, 'default.png', 'Roman'),
+(42, 'Körlük', 'José Saramago', '9789750000022', 1995, 'Felsefi', 'A-27', 4, 'default.png', 'Roman'),
+(43, 'Yeraltından Notlar', 'Fyodor Dostoyevski', '9786050000023', 1864, 'Varoluşçu', 'A-28', 9, 'default.png', 'Roman'),
+(44, 'Madam Bovary', 'Gustave Flaubert', '9786050000024', 1856, 'Realizm', 'A-29', 5, 'default.png', 'Roman'),
+(45, 'Büyük Umutlar', 'Charles Dickens', '9786050000025', 1861, 'Klasik', 'A-30', 4, 'default.png', 'Roman'),
+(46, 'Oliver Twist', 'Charles Dickens', '9786050000026', 1837, 'Klasik', 'A-31', 6, 'default.png', 'Roman'),
+(47, 'İnce Memed', 'Yaşar Kemal', '9789753630001', 1955, 'Destan', 'A-32', 5, 'default.png', 'Roman'),
+(48, 'Çalıkuşu', 'Reşat Nuri Güntekin', '9789751000001', 1922, 'Dram', 'A-33', 7, 'default.png', 'Roman'),
+(49, 'Eylül', 'Mehmet Rauf', '9789750000027', 1901, 'Psikolojik', 'A-34', 3, 'default.png', 'Roman'),
+(50, 'Mai ve Siyah', 'Halid Ziya Uşaklıgil', '9789750000028', 1897, 'Realizm', 'A-35', 4, 'default.png', 'Roman');
 
 -- --------------------------------------------------------
 
@@ -116,18 +117,18 @@ CREATE TABLE `borrowings` (
 --
 
 INSERT INTO `borrowings` (`id`, `user_id`, `book_id`, `borrow_date`, `due_date`, `return_date`, `status`) VALUES
-(1, 9, 1, '2026-05-06 18:38:25', NULL, NULL, 'borrowed'),
+(1, 9, 1, '2026-05-06 18:38:25', NULL, '2026-05-07 19:33:43', 'returned'),
 (2, 7, 2, '2026-05-06 18:39:23', NULL, NULL, 'borrowed'),
-(3, 9, 3, '2026-05-06 23:03:23', NULL, NULL, 'borrowed'),
-(4, 9, 3, '2026-05-06 23:03:25', NULL, NULL, 'borrowed'),
-(5, 9, 3, '2026-05-06 23:03:26', NULL, NULL, 'borrowed'),
-(6, 9, 3, '2026-05-06 23:03:26', NULL, NULL, 'borrowed'),
-(7, 9, 3, '2026-05-06 23:03:27', NULL, NULL, 'borrowed'),
-(8, 9, 3, '2026-05-06 23:03:28', NULL, NULL, 'borrowed'),
-(9, 9, 3, '2026-05-06 23:03:29', NULL, NULL, 'borrowed'),
-(10, 9, 3, '2026-05-06 23:03:29', NULL, NULL, 'borrowed'),
-(11, 9, 3, '2026-05-06 23:03:30', NULL, NULL, 'borrowed'),
-(12, 9, 3, '2026-05-06 23:03:30', NULL, NULL, 'borrowed'),
+(3, 9, 3, '2026-05-06 23:03:23', NULL, '2026-05-07 19:33:41', 'returned'),
+(4, 9, 3, '2026-05-06 23:03:25', NULL, '2026-05-07 19:33:40', 'returned'),
+(5, 9, 3, '2026-05-06 23:03:26', NULL, '2026-05-07 19:33:36', 'returned'),
+(6, 9, 3, '2026-05-06 23:03:26', NULL, '2026-05-07 19:33:37', 'returned'),
+(7, 9, 3, '2026-05-06 23:03:27', NULL, '2026-05-07 19:33:34', 'returned'),
+(8, 9, 3, '2026-05-06 23:03:28', NULL, '2026-05-07 19:33:33', 'returned'),
+(9, 9, 3, '2026-05-06 23:03:29', NULL, '2026-05-07 19:33:30', 'returned'),
+(10, 9, 3, '2026-05-06 23:03:29', NULL, '2026-05-07 19:33:31', 'returned'),
+(11, 9, 3, '2026-05-06 23:03:30', NULL, '2026-05-07 19:33:27', 'returned'),
+(12, 9, 3, '2026-05-06 23:03:30', NULL, '2026-05-07 19:33:28', 'returned'),
 (13, 7, 7, '2026-05-06 23:22:15', '2026-05-20 23:22:15', '2026-05-21 23:32:42', 'returned'),
 (14, 7, 6, '2026-05-06 23:22:17', '2026-05-20 23:22:17', '2026-05-21 23:32:41', 'returned'),
 (15, 7, 4, '2026-05-06 23:22:19', '2026-05-20 23:22:19', '2026-05-06 23:23:43', 'returned'),
@@ -140,7 +141,8 @@ INSERT INTO `borrowings` (`id`, `user_id`, `book_id`, `borrow_date`, `due_date`,
 (22, 7, 57, '2026-05-07 00:26:54', '2026-05-21 00:26:54', '2026-05-30 00:29:37', 'returned'),
 (23, 7, 52, '2026-05-07 00:27:09', '2026-05-21 00:27:09', '2026-05-30 00:29:39', 'returned'),
 (24, 9, 57, '2026-05-30 01:01:10', '2026-06-13 01:01:10', '2026-05-30 01:01:30', 'returned'),
-(25, 9, 57, '2026-05-30 01:14:24', '2026-06-13 01:14:24', '2026-05-30 01:14:32', 'returned');
+(25, 9, 57, '2026-05-30 01:14:24', '2026-06-13 01:14:24', '2026-05-30 01:14:32', 'returned'),
+(26, 7, 52, '2026-05-30 15:51:00', '2026-06-13 15:51:00', '2026-06-20 15:52:16', 'returned');
 
 -- --------------------------------------------------------
 
@@ -219,19 +221,19 @@ ALTER TABLE `users`
 -- Tablo için AUTO_INCREMENT değeri `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `borrowings`
 --
 ALTER TABLE `borrowings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `users`
