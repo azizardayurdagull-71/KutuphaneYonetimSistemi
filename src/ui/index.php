@@ -82,6 +82,7 @@ $notifications = $borrowService->getUserNotifications($_SESSION['user_id']);
                 </div>
             </div>
         </div>
+    </div>
     <?php endif; ?>
 </div>
 

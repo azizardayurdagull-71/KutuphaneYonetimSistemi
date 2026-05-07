@@ -11,13 +11,19 @@ class BookService {
     }
 
     /**
-     * Tüm kitapları getirir
+     * Tüm kitapları getirir (Kategori filtresi eklendi)
      */
-    public function getAllBooks() {
+    public function getAllBooks($category = null) {
         try {
-            $query = "SELECT * FROM books ORDER BY id DESC";
-            $stmt = $this->db->prepare($query);
-            $stmt->execute();
+            if ($category && $category !== '') {
+                $query = "SELECT * FROM books WHERE category = :category ORDER BY id DESC";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute([':category' => $category]);
+            } else {
+                $query = "SELECT * FROM books ORDER BY id DESC";
+                $stmt = $this->db->prepare($query);
+                $stmt->execute();
+            }
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Kitap listesi yüklenemedi: " . $e->getMessage());
@@ -25,7 +31,7 @@ class BookService {
     }
 
     /**
-     * GELİŞMİŞ ARAMA: ISBN (Barkod) dahil tüm filtreleri kapsar
+     * GELİŞMİŞ ARAMA: ISBN, Kategori ve ALFABETİK SIRALAMA dahil tüm filtreleri kapsar
      */
     public function searchBooks($filters = []) {
         try {
@@ -44,6 +50,10 @@ class BookService {
                 $query .= " AND genre LIKE :genre";
                 $params[':genre'] = '%' . $filters['genre'] . '%';
             }
+            if (!empty($filters['category'])) {
+                $query .= " AND category = :category";
+                $params[':category'] = $filters['category'];
+            }
             if (!empty($filters['isbn'])) {
                 $query .= " AND isbn = :isbn";
                 $params[':isbn'] = $filters['isbn'];
@@ -56,7 +66,21 @@ class BookService {
                 }
             }
 
-            $query .= " ORDER BY id DESC";
+            // --- ALFABETİK SIRALAMA MANTIĞI ---
+            if (!empty($filters['sort'])) {
+                if ($filters['sort'] === 'title_asc') {
+                    $query .= " ORDER BY title ASC";
+                } elseif ($filters['sort'] === 'title_desc') {
+                    $query .= " ORDER BY title DESC";
+                } elseif ($filters['sort'] === 'author_asc') {
+                    $query .= " ORDER BY author ASC";
+                } else {
+                    $query .= " ORDER BY id DESC";
+                }
+            } else {
+                $query .= " ORDER BY id DESC"; // Varsayılan olarak en yeniler
+            }
+
             $stmt = $this->db->prepare($query);
             $stmt->execute($params);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -79,17 +103,23 @@ class BookService {
     }
 
     /**
-     * Kitap Ekleme (ISBN/Barkod Desteğiyle)
+     * Kitap Ekleme (Kategori Desteğiyle)
      */
-    public function addBook($title, $author, $isbn, $year, $genre, $shelf, $stock, $image) {
+    public function addBook($title, $author, $isbn, $year, $genre, $shelf, $stock, $image, $category = 'Genel') {
         try {
-            $query = "INSERT INTO books (title, author, isbn, publish_year, genre, shelf_location, stock, cover_image) 
-                      VALUES (:title, :author, :isbn, :publish_year, :genre, :shelf_location, :stock, :cover_image)";
+            $query = "INSERT INTO books (title, author, isbn, publish_year, genre, shelf_location, stock, cover_image, category) 
+                      VALUES (:title, :author, :isbn, :publish_year, :genre, :shelf_location, :stock, :cover_image, :category)";
             $stmt = $this->db->prepare($query);
             return $stmt->execute([
-                ':title' => $title, ':author' => $author, ':isbn' => $isbn,
-                ':publish_year' => $year, ':genre' => $genre, 
-                ':shelf_location' => $shelf, ':stock' => $stock, ':cover_image' => $image
+                ':title' => $title, 
+                ':author' => $author, 
+                ':isbn' => $isbn,
+                ':publish_year' => $year, 
+                ':genre' => $genre, 
+                ':shelf_location' => $shelf, 
+                ':stock' => $stock, 
+                ':cover_image' => $image,
+                ':category' => $category
             ]);
         } catch (PDOException $e) {
             throw new Exception("Kitap eklenirken hata: " . $e->getMessage());
@@ -97,21 +127,27 @@ class BookService {
     }
 
     /**
-     * Kitap Güncelleme
+     * Kitap Güncelleme (Kategori Desteğiyle)
      */
-    public function updateBook($id, $title, $author, $isbn, $year, $genre, $shelf, $stock, $image = null) {
+    public function updateBook($id, $title, $author, $isbn, $year, $genre, $shelf, $stock, $image = null, $category = 'Genel') {
         try {
             $query = "UPDATE books SET title=:title, author=:author, isbn=:isbn, publish_year=:publish_year, 
-                      genre=:genre, shelf_location=:shelf_location, stock=:stock";
+                      genre=:genre, category=:category, shelf_location=:shelf_location, stock=:stock";
             
             if($image) { $query .= ", cover_image=:cover_image"; }
             $query .= " WHERE id=:id";
 
             $stmt = $this->db->prepare($query);
             $params = [
-                ':id' => $id, ':title' => $title, ':author' => $author, ':isbn' => $isbn,
-                ':publish_year' => $year, ':genre' => $genre, 
-                ':shelf_location' => $shelf, ':stock' => $stock
+                ':id' => $id, 
+                ':title' => $title, 
+                ':author' => $author, 
+                ':isbn' => $isbn,
+                ':publish_year' => $year, 
+                ':genre' => $genre, 
+                ':category' => $category,
+                ':shelf_location' => $shelf, 
+                ':stock' => $stock
             ];
             if($image) { $params[':cover_image'] = $image; }
 
@@ -136,7 +172,7 @@ class BookService {
     }
 
     /**
-     * Hızlı Stok Güncelleme (Ödünç Alma/İade için yardımcı)
+     * Hızlı Stok Güncelleme
      */
     public function updateStock($bookId, $amount) {
         try {

@@ -15,14 +15,17 @@ if (!isset($_SESSION['user_id'])) {
 
 $bookService = new BookService();
 
-// Arama ve filtreleme parametrelerini yakala
+
 $filters = [
-    'title'  => $_GET['title'] ?? '',
+    'title' => $_GET['title'] ?? '',
     'author' => $_GET['author'] ?? '',
-    'genre'  => $_GET['genre'] ?? '',
-    'isbn'   => $_GET['isbn'] ?? '',
-    'status' => $_GET['status'] ?? ''
+    'isbn' => $_GET['isbn'] ?? '',
+    'status' => $_GET['status'] ?? '',
+    'category' => $_GET['category'] ?? '',
+    'sort' => $_GET['sort'] ?? '' 
 ];
+
+$books = $bookService->searchBooks($filters);
 
 // Eğer herhangi bir filtre doluysa searchBooks() fonksiyonunu çağır, değilse hepsini getir
 $books = array_filter($filters) ? $bookService->searchBooks($filters) : $bookService->getAllBooks();
@@ -73,11 +76,34 @@ $books = array_filter($filters) ? $bookService->searchBooks($filters) : $bookSer
                     <option value="borrowed" <?php echo $filters['status'] == 'borrowed' ? 'selected' : ''; ?>>Tükenenler</option>
                 </select>
             </div>
+            <div class="col-md-2">
+    <label class="form-label fw-bold text-muted small">Kategori</label>
+    <select name="category" class="form-select">
+        <option value="">Tümü</option>
+        <option value="Roman">Roman</option>
+        <option value="Bilim">Bilim</option>
+        <option value="Dergi">Dergi</option>
+        <option value="Tarih">Tarih</option>
+        <option value="Gezi">Gezi</option>
+        <option value="Genel">Genel</option>
+    </select>
+</div>
 
-            <div class="col-md-2 d-flex align-items-end gap-2">
-                <button type="submit" class="btn btn-primary w-100 fw-bold">Listele</button>
-                <a href="list_books.php" class="btn btn-outline-secondary" title="Filtreleri Sıfırla"><i class="bi bi-arrow-counterclockwise"></i></a>
-            </div>
+<div class="col-md-2">
+    <label class="form-label text-muted small fw-bold">Sıralama</label>
+    <select name="sort" class="form-select">
+        <option value="">En Yeniler</option>
+        <option value="title_asc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'title_asc') ? 'selected' : ''; ?>>A-Z (Kitap Adı)</option>
+        <option value="title_desc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'title_desc') ? 'selected' : ''; ?>>Z-A (Kitap Adı)</option>
+        <option value="author_asc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'author_asc') ? 'selected' : ''; ?>>A-Z (Yazar Adı)</option>
+        <option value="author_desc" <?php echo (isset($_GET['sort']) && $_GET['sort'] == 'author_asc') ? 'selected' : ''; ?>>Z-A (Yazar Adı)</option>
+    </select>
+</div>
+
+            <div class="col-md-auto ms-auto d-flex align-items-end gap-2">
+    <button type="submit" class="btn btn-primary px-4 fw-bold">Listele</button>
+    <a href="list_books.php" class="btn btn-outline-secondary" title="Filtreleri Sıfırla"><i class="bi bi-arrow-counterclockwise"></i></a>
+</div>
         </form>
     </div>
 </div>

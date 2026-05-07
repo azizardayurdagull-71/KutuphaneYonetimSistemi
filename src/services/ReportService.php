@@ -21,7 +21,7 @@ class ReportService {
             $stmt = $this->db->query("SELECT COUNT(*) as total FROM books");
             $stats['total_books'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-            // Toplam Öğrenci/Kullanıcı Sayısı
+            // Toplam SADECE Öğrenci Sayısı (Adminler dahil değil)
             $stmt = $this->db->query("SELECT COUNT(*) as total FROM users WHERE role = 'student'");
             $stats['total_students'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
@@ -29,7 +29,7 @@ class ReportService {
             $stmt = $this->db->query("SELECT COUNT(*) as total FROM borrowings");
             $stats['total_borrowings'] = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 
-            // Gecikme Oranı Hesaplama (Aktif ödünçlerdeki gecikme yüzdesi)
+            // Gecikme Oranı Hesaplama
             $stmt = $this->db->query("SELECT COUNT(*) as total FROM borrowings WHERE status = 'borrowed'");
             $active_borrowings = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
             
@@ -38,8 +38,6 @@ class ReportService {
 
             $stats['active_borrowings'] = $active_borrowings;
             $stats['overdue_borrowings'] = $overdue_borrowings;
-            
-            // Yüzde hesaplama (Sıfıra bölünme hatasını engellemek için kontrol)
             $stats['overdue_rate'] = $active_borrowings > 0 ? round(($overdue_borrowings / $active_borrowings) * 100, 1) : 0;
 
             return $stats;
@@ -65,13 +63,15 @@ class ReportService {
     }
 
     /**
-     * En Aktif Kullanıcıları Getirir
+     * En Aktif Kullanıcıları Getirir (ADMİNLER ELENDİ)
      */
     public function getMostActiveUsers() {
         try {
+            // BURASI KRİTİK: WHERE u.role = 'student' ekleyerek adminleri grafikten siliyoruz
             $query = "SELECT u.username, COUNT(b.id) as borrow_count 
                       FROM borrowings b 
                       JOIN users u ON b.user_id = u.id 
+                      WHERE u.role = 'student' 
                       GROUP BY u.username 
                       ORDER BY borrow_count DESC LIMIT 5";
             return $this->db->query($query)->fetchAll(PDO::FETCH_ASSOC);

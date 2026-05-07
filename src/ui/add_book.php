@@ -16,10 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Kapak fotoğrafı yükleme mantığı (Basitçe default atanıyor, geliştirilebilir)
         $image = "default.png"; 
         
+        // YENİ: Formdan gelen kategoriyi alıyoruz (boşsa Genel atanır)
+        $category = $_POST['category'] ?? 'Genel';
+        
+        // YENİ: $category değişkeni de fonksiyona eklendi
         $bookService->addBook(
             $_POST['title'], $_POST['author'], $_POST['isbn'], 
             $_POST['publish_year'], $_POST['genre'], $_POST['shelf_location'], 
-            $_POST['stock'], $image
+            $_POST['stock'], $image, $category
         );
         $message = "<div class='alert alert-success'><i class='bi bi-check-circle-fill'></i> Kitap başarıyla eklendi!</div>";
     } catch (Exception $e) {
@@ -67,14 +71,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <label class="form-label fw-bold text-muted small">Yayın Yılı</label>
                             <input type="number" name="publish_year" class="form-control" required placeholder="Örn: 1949">
                         </div>
+                        
                         <div class="col-md-4">
-                            <label class="form-label fw-bold text-muted small">Kategori / Tür</label>
+                            <label class="form-label fw-bold text-muted small">Ana Kategori</label>
+                            <select name="category" class="form-select" required>
+                                <option value="Roman">Roman</option>
+                                <option value="Bilim">Bilim</option>
+                                <option value="Dergi">Dergi</option>
+                                <option value="Tarih">Tarih</option>
+                                <option value="Gezi">Gezi</option>
+                                <option value="Genel" selected>Genel</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold text-muted small">Alt Tür (Genre)</label>
                             <input type="text" name="genre" class="form-control" required placeholder="Örn: Distopya">
                         </div>
+                        
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small">Raf Konumu</label>
                             <input type="text" name="shelf_location" class="form-control" required placeholder="Örn: A-01">
                         </div>
+                        
                         <div class="col-md-4">
                             <label class="form-label fw-bold text-muted small">Stok Adedi</label>
                             <input type="number" name="stock" class="form-control" required value="1" min="1">
