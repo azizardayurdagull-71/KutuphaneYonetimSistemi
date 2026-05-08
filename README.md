@@ -2,6 +2,9 @@
 
 Bu proje, temel PHP ve MySQL kullanılarak hazırlanmış bir kütüphane otomasyonudur. Sistemin temel amacı kitap takibini dijital ortamda kolayca yapabilmektir.
 
+## Proje Amacı
+Bu proje, okullardaki veya yerel kütüphanelerdeki kitap ödünç alma/iade süreçlerini dijitalleştirmek, stok takibini otomatize etmek ve yetkisiz erişimleri (Öğrenci/Admin ayrımı) engellemek amacıyla geliştirilmiş modern bir web otomasyonudur.
+
 ##  Temel Özellikler
 
 - **Giriş Sistemi:** Admin ve kullanıcı girişleri mevcuttur. Yetkiye göre menüler değişir.
@@ -20,9 +23,13 @@ Bu proje, temel PHP ve MySQL kullanılarak hazırlanmış bir kütüphane otomas
 
 ##  Kurulum Notları
 
-1. Proje dosyalarını yerel sunucunuza (XAMPP/WAMP vb.) kopyalayın.
-2. `src/core/Database.php` dosyasından veritabanı ayarlarını yapın.
-3. Veritabanını (SQL dosyası) içeri aktardıktan sonra sistemi kullanmaya başlayabilirsiniz.
+1. **Gereksinimler:** Bilgisayarınızda XAMPP (veya WAMP) kurulu olmalıdır.
+2. **Klasörleme:** Bu projeyi indirin ve XAMPP içindeki `htdocs` klasörünün içine çıkartın.
+3. **Veritabanı Kurulumu:** - XAMPP kontrol panelinden Apache ve MySQL'i başlatın.
+   - Tarayıcıda `http://localhost/phpmyadmin` adresine gidin.
+   - `kutuphane` adında boş bir veritabanı oluşturun.
+   - Proje içindeki `data/kutuphane_sistemi.sql` dosyasını İçe Aktar (Import) seçeneği ile bu veritabanına yükleyin.
+4. **Çalıştırma:** Tarayıcınızda `http://localhost/proje_klasor_adi` adresine giderek sistemi kullanmaya başlayabilirsiniz.
 
 ---
 **Aziz Arda Yurdagül**
