@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+body {
+    background-color: #f4f7f6;
+    font-family: 'Nunito', sans-serif;
+    color: #4a5568;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sol Menü ve İçerik Taşıyıcısı */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- SOL MENÜ (SIDEBAR) TASARIMI --- */
+.sidebar {
+    min-width: 260px;
+    max-width: 260px;
+    background: #ffffff;
+    border-right: 1px solid #e3e6f0;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+    z-index: 10;
+}
+
+.sidebar-brand {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #4e73df;
+    padding: 0 25px 25px;
+    border-bottom: 1px solid #e3e6f0;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6c757d;
+    padding: 14px 25px;
+    border-radius: 0 30px 30px 0;
+    margin-right: 15px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-link i { font-size: 1.3rem; }
+.nav-link:hover {
+    background-color: #e8f0fe;
+    color: #4e73df;
+}
+
+/* --- SAĞ İÇERİK ALANI --- */
+.main-content {
+    flex-grow: 1;
+    padding: 30px 40px;
+    background-color: #f8f9fc;
+    width: calc(100% - 260px);
+}
+
+/* --- KART TASARIMLARI (GÖRSELDEKİ GİBİ) --- */
+.card {
+    background: #ffffff;
+    border: 1px solid #e3e6f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+
+/* Kartların Sol Kenar Renk Çizgileri */
+.border-left-primary { border-left: 5px solid #4e73df !important; }
+.border-left-success { border-left: 5px solid #1cc88a !important; }
+.border-left-danger { border-left: 5px solid #e74a3b !important; }
+
+.text-primary { color: #4e73df !important; }
+.text-success { color: #1cc88a !important; }
+.text-danger { color: #e74a3b !important; }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 700; color: #3a3b45; }
